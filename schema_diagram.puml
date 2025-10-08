@@ -1,0 +1,115 @@
+@startuml Music Store Database Schema
+!define Table(name,desc) entity name as "name\ndesc" << (T,#FFAAAA) >>
+!define primary_key(x) <b>x</b>
+!define foreign_key(x) <i>x</i>
+
+entity "Artist" as Artist {
+  * ArtistId : int <<PK>>
+  Name : varchar(120)
+}
+
+entity "Album" as Album {
+  * AlbumId : int <<PK>>
+  Title : varchar(160)
+  ArtistId : int <<FK>>
+}
+
+entity "Track" as Track {
+  * TrackId : int <<PK>>
+  Name : varchar(200)
+  AlbumId : int <<FK>>
+  MediaTypeId : int <<FK>>
+  GenreId : int <<FK>>
+  Composer : varchar(220)
+  Milliseconds : int
+  Bytes : int
+  UnitPrice : numeric(10,2)
+}
+
+entity "Genre" as Genre {
+  * GenreId : int <<PK>>
+  Name : varchar(120)
+}
+
+entity "MediaType" as MediaType {
+  * MediaTypeId : int <<PK>>
+  Name : varchar(120)
+}
+
+entity "Playlist" as Playlist {
+  * PlaylistId : int <<PK>>
+  Name : varchar(120)
+}
+
+entity "PlaylistTrack" as PlaylistTrack {
+  * PlaylistId : int <<PK>>
+  * TrackId : int <<PK>>
+}
+
+entity "Employee" as Employee {
+  * EmployeeId : int <<PK>>
+  LastName : varchar(20)
+  FirstName : varchar(20)
+  Title : varchar(30)
+  ReportsTo : int <<FK>>
+  BirthDate : datetime
+  HireDate : datetime
+  Address : varchar(70)
+  City : varchar(40)
+  State : varchar(40)
+  Country : varchar(40)
+  PostalCode : varchar(10)
+  Phone : varchar(24)
+  Fax : varchar(24)
+  Email : varchar(60)
+}
+
+entity "Customer" as Customer {
+  * CustomerId : int <<PK>>
+  FirstName : varchar(40)
+  LastName : varchar(20)
+  Company : varchar(80)
+  Address : varchar(70)
+  City : varchar(40)
+  State : varchar(40)
+  Country : varchar(40)
+  PostalCode : varchar(10)
+  Phone : varchar(24)
+  Fax : varchar(24)
+  Email : varchar(60)
+  SupportRepId : int <<FK>>
+}
+
+entity "Invoice" as Invoice {
+  * InvoiceId : int <<PK>>
+  CustomerId : int <<FK>>
+  InvoiceDate : datetime
+  BillingAddress : varchar(70)
+  BillingCity : varchar(40)
+  BillingState : varchar(40)
+  BillingCountry : varchar(40)
+  BillingPostalCode : varchar(10)
+  Total : numeric(10,2)
+}
+
+entity "InvoiceLine" as InvoiceLine {
+  * InvoiceLineId : int <<PK>>
+  InvoiceId : int <<FK>>
+  TrackId : int <<FK>>
+  UnitPrice : numeric(10,2)
+  Quantity : int
+}
+
+Artist ||..o{ Album : "1..*"
+Album ||..o{ Track : "1..*"
+Track }o..|| Genre : "1"
+Track }o..|| MediaType : "1"
+Playlist ||..o{ PlaylistTrack : "1..*"
+Track }o..|| PlaylistTrack : "1..*"
+Employee ||..o{ Employee : "reports to"
+Employee ||..o{ Customer : "supports"
+Customer ||..o{ Invoice : "1..*"
+Invoice ||..o{ InvoiceLine : "1..*"
+Track }o..|| InvoiceLine : "1"
+
+@enduml
