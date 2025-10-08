@@ -1,4 +1,4 @@
-MelodyMetrics is a SQL-based analytics project for an online music store.\The goal is to answer key business questions about the store’s performance and provide insights for better decision-making.This project demonstrates SQL skills such as JOINs, aggregation, GROUP BY, and subqueries, along with basic business analytics.
+MelodyMetrics is a SQL-based analytics project for an online music store.The goal is to answer key business questions about the store’s performance and provide insights for better decision-making.This project demonstrates SQL skills such as JOINs, aggregation, GROUP BY, and subqueries, along with basic business analytics.
 
 Features : 
 Most Popular Genres of Music – Identify which genres sell the most tracks.  
